@@ -74,7 +74,7 @@
 	}
 
 	.sections:not(:first-child) {
-		margin-top: @triple * 2;
+		margin-top: @base;
 	}
 
 	.section:last-child .articles > li:last-child {
@@ -98,8 +98,8 @@
 		.galleys,
 		.section {
 			position: relative;
-			margin: @triple -@double;
-			padding: @triple;
+			margin: 0px -@double;
+			padding: @double @triple @base @triple;
 
 			&:before {
 				content: '';
@@ -128,7 +128,7 @@
 
 		.galleys,
 		.section {
-			margin: @triple -@triple;
+			margin: 0px -@triple;
 		}
 
 		.cover {
