@@ -3,8 +3,8 @@
 /**
  * @file classes/install/Upgrade.inc.php
  *
- * Copyright (c) 2014-2018 Simon Fraser University
- * Copyright (c) 2003-2018 John Willinsky
+ * Copyright (c) 2014-2019 Simon Fraser University
+ * Copyright (c) 2003-2019 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Upgrade
@@ -1476,7 +1476,7 @@ class Upgrade extends Installer {
 		import('lib.pkp.classes.file.SubmissionFileManager');
 		// Get supp files with show_reviewers = 1
 		// We cannot support/consider remote supp files
-		$suppFilesResult = $submissionFileDao->retrieve('SELECT a.context_id, sf.* FROM article_supplementary_files sf, submissions a WHERE a.submission_id = sf.article_id AND sf.file_id <> 0 AND sf.show_reviewers = 1 AND sf.remote_url IS NULL');
+		$suppFilesResult = $submissionFileDao->retrieve('SELECT a.context_id, sf.* FROM article_supplementary_files sf, submissions a WHERE a.submission_id = sf.article_id AND sf.file_id <> 0 AND sf.show_reviewers = 1 AND sf.remote_url IS NULL and sf.file_id in (select f.file_id from submission_files f)');
 		while (!$suppFilesResult->EOF) {
 			$suppFilesRow = $suppFilesResult->getRowAssoc(false);
 			$suppFilesResult->MoveNext();

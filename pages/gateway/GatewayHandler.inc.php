@@ -3,8 +3,8 @@
 /**
  * @file pages/gateway/GatewayHandler.inc.php
  *
- * Copyright (c) 2014-2018 Simon Fraser University
- * Copyright (c) 2003-2018 John Willinsky
+ * Copyright (c) 2014-2019 Simon Fraser University
+ * Copyright (c) 2003-2019 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class GatewayHandler
@@ -64,12 +64,6 @@ class GatewayHandler extends Handler {
 					$journal->getId()
 				);
 				list($year) = $result->fields;
-				$result = $issueDao->retrieve(
-					'SELECT * FROM issues WHERE journal_id = ? AND year = ? AND published = 1 ORDER BY current DESC, year ASC, volume ASC, number ASC',
-					array($journal->getId(), $year)
-				);
-				$issues = new DAOResultFactory($result, $issueDao, '_returnIssueFromRow');
-				$templateMgr->assign('issues', $issues);
 				$templateMgr->assign('showInfo', true);
 			}
 
@@ -93,6 +87,8 @@ class GatewayHandler extends Handler {
 			$templateMgr->assign('year', $year);
 			$templateMgr->assign('prevYear', $prevYear);
 			$templateMgr->assign('nextYear', $nextYear);
+			$issues = $issueDao->getPublishedIssuesByNumber($journal->getId(), null, null, $year);
+			$templateMgr->assign('issues', $issues);
 
 			$locales = $journal->getSupportedLocaleNames();
 			if (!isset($locales) || empty($locales)) {
@@ -150,11 +146,7 @@ class GatewayHandler extends Handler {
 					$journal->getId()
 				);
 				list($year) = $result->fields;
-				$result = $issueDao->retrieve(
-					'SELECT * FROM issues WHERE journal_id = ? AND year = ? AND published = 1 ORDER BY current DESC, year ASC, volume ASC, number ASC',
-					array($journal->getId(), $year)
-				);
-				$issues = new DAOResultFactory($result, $issueDao, '_returnIssueFromRow');
+				$issues = $issueDao->getPublishedIssuesByNumber($journal->getId(), null, null, $year);
 				$templateMgr->assign('issues', $issues);
 				$templateMgr->assign('showInfo', true);
 			}
@@ -179,6 +171,8 @@ class GatewayHandler extends Handler {
 			$templateMgr->assign('year', $year);
 			$templateMgr->assign('prevYear', $prevYear);
 			$templateMgr->assign('nextYear', $nextYear);
+			$issues = $issueDao->getPublishedIssuesByNumber($journal->getId(), null, null, $year);
+			$templateMgr->assign('issues', $issues);
 
 			$locales =& $journal->getSupportedLocaleNames();
 			if (!isset($locales) || empty($locales)) {

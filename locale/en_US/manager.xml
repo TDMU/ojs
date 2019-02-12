@@ -4,8 +4,8 @@
 <!--
   * locale/en_US/manager.xml
   *
-  * Copyright (c) 2013-2018 Simon Fraser University
-  * Copyright (c) 2003-2018 John Willinsky
+  * Copyright (c) 2013-2019 Simon Fraser University
+  * Copyright (c) 2003-2019 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   * Localization information: https://pkp.sfu.ca/wiki/index.php?title=Translating_OxS
   * Localization strings.
@@ -449,6 +449,8 @@
 	<message key="manager.subscriptions.form.dateStartValid">Please select a valid subscription start date.</message>
 	<message key="manager.subscriptions.form.dateEnd">End date</message>
 	<message key="manager.subscriptions.form.dateEndRequired">A subscription end date is required.</message>
+	<message key="manager.subscriptions.form.dateStartEmpty">This is a non-expiring subscription type; please do not specify a start date.</message>
+	<message key="manager.subscriptions.form.dateEndEmpty">This is a non-expiring subscription type; please do not specify an end date.</message>
 	<message key="manager.subscriptions.form.dateEndValid">Please select a valid subscription end date.</message>
 	<message key="manager.subscriptions.form.userProfileInstructions">Note: All changes below are to user's system-wide profile.</message>
 	<message key="manager.subscriptions.form.userId">User</message>
