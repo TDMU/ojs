@@ -31,7 +31,9 @@
 			<label class="pkp_screen_reader" for="query">
 				{translate key="search.searchFor"}
 			</label>
-			<input type="text" id="query" name="query" value="{$query|escape}" class="query" placeholder="{translate|escape key="common.search"}">
+			{block name=searchQuery}
+				<input type="text" id="query" name="query" value="{$query|escape}" class="query" placeholder="{translate|escape key="common.search"}">
+			{/block}
 		</div>
 
 		<fieldset class="search_advanced">
@@ -56,7 +58,9 @@
 				<label class="label" for="authors">
 					{translate key="search.author"}
 				</label>
-				<input type="text" for="authors" name="authors" value="{$authors|escape}">
+				{block name=searchAuthors}
+					<input type="text" for="authors" name="authors" value="{$authors|escape}">
+				{/block}
 			</div>
 			{call_hook name="Templates::Search::SearchResults::AdditionalFilters"}
 		</fieldset>
@@ -90,6 +94,9 @@
 			{page_links anchor="results" iterator=$results name="search" query=$query searchJournal=$searchJournal authors=$authors title=$title abstract=$abstract galleyFullText=$galleyFullText discipline=$discipline subject=$subject type=$type coverage=$coverage indexTerms=$indexTerms dateFromMonth=$dateFromMonth dateFromDay=$dateFromDay dateFromYear=$dateFromYear dateToMonth=$dateToMonth dateToDay=$dateToDay dateToYear=$dateToYear orderBy=$orderBy orderDir=$orderDir}
 		</div>
 	{/if}
+
+	{* Search Syntax Instructions *}
+	{block name=searchSyntaxInstructions}{/block}
 </div><!-- .page -->
 
 {include file="frontend/components/footer.tpl"}
