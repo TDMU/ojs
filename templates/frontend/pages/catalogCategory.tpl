@@ -23,6 +23,9 @@
 
 	{* Breadcrumb *}
 	{include file="frontend/components/breadcrumbs_catalog.tpl" type="category" parent=$parentCategory currentTitle=$category->getLocalizedTitle()}
+	<h1>
+		{$category->getLocalizedTitle()|escape}
+	</h1>
 
 	{* Count of articles in this category *}
 	<div class="article_count">
@@ -71,7 +74,7 @@
 		<ul class="cmp_article_list articles">
 			{foreach from=$publishedSubmissions item=article}
 				<li>
-					{include file="frontend/objects/article_summary.tpl"}
+					{include file="frontend/objects/article_summary.tpl" article=$article hideGalleys=true}
 				</li>
 			{/foreach}
 		</ul>

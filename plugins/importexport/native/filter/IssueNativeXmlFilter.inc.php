@@ -132,7 +132,7 @@ class IssueNativeXmlFilter extends NativeExportFilter {
 
 		// Add pub IDs by plugin
 		$pubIdPlugins = PluginRegistry::loadCategory('pubIds', true, $deployment->getContext()->getId());
-		foreach ((array) $pubIdPlugins as $pubIdPlugin) {
+		foreach ($pubIdPlugins as $pubIdPlugin) {
 			$this->addPubIdentifier($doc, $issueNode, $issue, $pubIdPlugin);
 		}
 	}
@@ -194,7 +194,8 @@ class IssueNativeXmlFilter extends NativeExportFilter {
 		$exportFilter->setIncludeSubmissionsNode(true);
 
 		$publishedArticleDao = DAORegistry::getDAO('PublishedArticleDAO');
-		$articlesDoc = $exportFilter->execute($publishedArticleDao->getPublishedArticles($issue->getId()));
+		$publishedArticles = $publishedArticleDao->getPublishedArticles($issue->getId());
+		$articlesDoc = $exportFilter->execute($publishedArticles);
 		if ($articlesDoc->documentElement instanceof DOMElement) {
 			$clone = $doc->importNode($articlesDoc->documentElement, true);
 			$issueNode->appendChild($clone);
@@ -215,7 +216,8 @@ class IssueNativeXmlFilter extends NativeExportFilter {
 		$exportFilter->setDeployment($this->getDeployment());
 
 		$issueGalleyDao = DAORegistry::getDAO('IssueGalleyDAO');
-		$issueGalleysDoc = $exportFilter->execute($issueGalleyDao->getByIssueId($issue->getId()));
+		$issue = $issueGalleyDao->getByIssueId($issue->getId());
+		$issueGalleysDoc = $exportFilter->execute($issue);
 		if ($issueGalleysDoc->documentElement instanceof DOMElement) {
 			$clone = $doc->importNode($issueGalleysDoc->documentElement, true);
 			$issueNode->appendChild($clone);
@@ -234,6 +236,9 @@ class IssueNativeXmlFilter extends NativeExportFilter {
 		$deployment = $this->getDeployment();
 		$journal = $deployment->getContext();
 
+		// Boundary condition: no sections in this issue.
+		if (!count($sections)) return;
+
 		$sectionsNode = $doc->createElementNS($deployment->getNamespace(), 'sections');
 		foreach ($sections as $section) {
 			$sectionNode = $doc->createElementNS($deployment->getNamespace(), 'section');
@@ -244,7 +249,7 @@ class IssueNativeXmlFilter extends NativeExportFilter {
 
 			if ($section->getReviewFormId()) $sectionNode->setAttribute('review_form_id', $section->getReviewFormId());
 			$sectionNode->setAttribute('ref', $section->getAbbrev($journal->getPrimaryLocale()));
-			$sectionNode->setAttribute('seq', $section->getSequence());
+			$sectionNode->setAttribute('seq', (int) $section->getSequence());
 			$sectionNode->setAttribute('editor_restricted', $section->getEditorRestricted());
 			$sectionNode->setAttribute('meta_indexed', $section->getMetaIndexed());
 			$sectionNode->setAttribute('meta_reviewed', $section->getMetaReviewed());
