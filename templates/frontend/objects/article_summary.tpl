@@ -55,6 +55,28 @@
 			</div>
 		{/if}
 
+        {* DOI (requires plugin) *}
+        {foreach from=$pubIdPlugins item=pubIdPlugin}
+            {if $pubIdPlugin->getPubIdType() != 'doi'}
+                {continue}
+            {/if}
+            {assign var=pubId value=$article->getStoredPubId($pubIdPlugin->getPubIdType())}
+            {if $pubId}
+                {assign var="doiUrl" value=$pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}
+                <div class="item doi">
+                    <span class="label">
+                        {capture assign=translatedDOI}{translate key="plugins.pubIds.doi.readerDisplayName"}{/capture}
+                        {translate key="semicolon" label=$translatedDOI}
+                    </span>
+                    <span class="value">
+                        <a href="{$doiUrl}">
+                            {$doiUrl}
+                        </a>
+                    </span>
+                </div>
+            {/if}
+        {/foreach}
+
 		{if $showDatePublished && $article->getDatePublished()}
 			<div class="published">
 				{$article->getDatePublished()|date_format:$dateFormatShort}
