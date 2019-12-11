@@ -106,6 +106,7 @@ class LanguageToggleBlockPlugin extends BlockPlugin {
 		if (isset($locales) && count($locales) > 1) {
 			$templateMgr->assign('enableLanguageToggle', true);
 			$templateMgr->assign('languageToggleLocales', $locales);
+            $templateMgr->assign('localeFlagPath', '/'.$this->getPluginPath().'/locale/');
 		}
 
 		return parent::getContents($templateMgr, $request);

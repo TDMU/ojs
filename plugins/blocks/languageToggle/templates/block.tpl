@@ -13,16 +13,15 @@
 		{translate key="common.language"}
 	</span>
 
-	<div class="content">
-		<ul>
-			{foreach from=$languageToggleLocales item=localeName key=localeKey}
-				<li class="locale_{$localeKey|escape}{if $localeKey == $currentLocale} current{/if}" lang="{$localeKey|escape}">
-					<a href="{url router=$smarty.const.ROUTE_PAGE page="user" op="setLocale" path=$localeKey source=$smarty.server.REQUEST_URI}">
-						{$localeName}
-					</a>
-				</li>
-			{/foreach}
-		</ul>
+	<div class="content" style="display: flex;">
+        {foreach from=$languageToggleLocales item=localeName key=localeKey}
+            <div class="locale_{$localeKey|escape}{if $localeKey == $currentLocale} current{/if}" lang="{$localeKey|escape}">
+                <a href="{url router=$smarty.const.ROUTE_PAGE page="user" op="setLocale" path=$localeKey source=$smarty.server.REQUEST_URI}">
+                    <img src="{$localeFlagPath}{$localeKey}/flag_32.png" alt="{$localeName}" title="{$localeName}" 
+                        style="width: 48px; margin-right: 4px;">
+                </a>
+            </div>
+        {/foreach}
 	</div>
 </div><!-- .block_language -->
 {/if}
