@@ -88,6 +88,21 @@ class LanguageToggleBlockPlugin extends BlockPlugin
         $templateMgr->assign('enableLanguageToggle', count($locales) > 1);
         $templateMgr->assign('languageToggleLocales', $locales);
 
-        return parent::getContents($templateMgr, $request);
-    }
+			} else {
+				$site = $request->getSite();
+				$locales = $site->getSupportedLocaleNames();
+			}
+		} else {
+			$locales = AppLocale::getAllLocales();
+			$templateMgr->assign('languageToggleNoUser', true);
+		}
+
+		if (isset($locales) && count($locales) > 1) {
+			$templateMgr->assign('enableLanguageToggle', true);
+			$templateMgr->assign('languageToggleLocales', $locales);
+            $templateMgr->assign('localeFlagPath', '/'.$this->getPluginPath().'/locale/');
+		}
+
+		return parent::getContents($templateMgr, $request);
+	}
 }
