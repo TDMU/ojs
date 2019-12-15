@@ -337,8 +337,10 @@
 					</div>
 				{/if}
 			</div>
-
-			{* PubIds (requires plugins) *}
+            <div class="item issue">
+                <span class="__dimensions_badge_embed__" data-doi="{$pubId}" data-style="small_circle"></span><script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
+			</div>
+            {* PubIds (requires plugins) *}
 			{foreach from=$pubIdPlugins item=pubIdPlugin}
 				{if $pubIdPlugin->getPubIdType() == 'doi'}
 					{continue}
