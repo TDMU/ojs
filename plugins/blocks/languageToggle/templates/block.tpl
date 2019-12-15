@@ -17,7 +17,7 @@
         {foreach from=$languageToggleLocales item=localeName key=localeKey}
             <div class="locale_{$localeKey|escape}{if $localeKey == $currentLocale} current{/if}" lang="{$localeKey|escape}">
                 <a href="{url router=$smarty.const.ROUTE_PAGE page="user" op="setLocale" path=$localeKey source=$smarty.server.REQUEST_URI}">
-                    <img src="{$localeFlagPath}{$localeKey}/flag_32.png" alt="{$localeName}" title="{$localeName}" 
+                    <img src="{$localeFlagPath}{$localeKey}/flag.png" alt="{$localeName}" title="{$localeName}" 
                         style="width: 48px; margin-right: 4px;">
                 </a>
             </div>
