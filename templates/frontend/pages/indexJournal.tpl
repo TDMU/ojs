@@ -54,23 +54,6 @@
 		{include file="frontend/objects/latest_article.tpl" articles=$publishedPublications heading="h2"}
 	{/if}
 
-	{* Latest issue *}
-	{if $issue}
-		<section class="current_issue">
-			<a id="homepageIssue"></a>
-			<h2>
-				{translate key="journal.currentIssue"}
-			</h2>
-			<div class="current_issue_title">
-				{$issue->getIssueIdentification()|escape}
-			</div>
-			{include file="frontend/objects/issue_toc.tpl" heading="h3"}
-			<a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="issue" op="archive"}" class="read_more">
-				{translate key="journal.viewAllIssues"}
-			</a>
-		</section>
-	{/if}
-
 	{* Additional Homepage Content *}
 	{if $additionalHomeContent}
 		<div class="additional_content">
