@@ -56,3 +56,6 @@
 [submodule "plugins/generic/webFeed"]
 	path = plugins/generic/webFeed
 	url = https://github.com/pkp/webFeed.git
+[submodule "plugins/blocks/mostRead"]
+	path = plugins/blocks/mostRead
+	url = https://github.com/TDMU/mostRead.git
