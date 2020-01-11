@@ -50,3 +50,6 @@
 [submodule "plugins/generic/googleScholar"]
 	path = plugins/generic/googleScholar
 	url = https://github.com/pkp/googleScholar
+[submodule "plugins/blocks/mostRead"]
+	path = plugins/blocks/mostRead
+	url = https://github.com/TDMU/mostRead.git
