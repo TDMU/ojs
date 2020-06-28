@@ -3,9 +3,9 @@
 /**
  * @file plugins/importexport/medra/tests/classes/MedraWebserviceTest.php
  *
- * Copyright (c) 2014-2018 Simon Fraser University
- * Copyright (c) 2000-2018 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2020 Simon Fraser University
+ * Copyright (c) 2000-2020 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class MedraWebserviceTest
  * @ingroup plugins_importexport_medra_tests_classes
@@ -20,7 +20,7 @@ import('plugins.importexport.medra.classes.MedraWebservice');
 class MedraWebserviceTest extends PKPTestCase {
 	private $ws;
 
-	protected function setUp() {
+	protected function setUp() : void {
 		// Retrieve and check configuration.
 		$medraPassword = Config::getVar('debug', 'webtest_medra_pw');
 		if (empty($medraPassword)) {

@@ -3,9 +3,9 @@
 /**
  * @file pages/payment/PaymentHandler.inc.php
  *
- * Copyright (c) 2014-2018 Simon Fraser University
- * Copyright (c) 2003-2018 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2020 Simon Fraser University
+ * Copyright (c) 2003-2020 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class PaymentHandler
  * @ingroup pages_payment
@@ -23,7 +23,7 @@ class PaymentHandler extends Handler {
 	 * @param $request PKPRequest
 	 */
 	function plugin($args, $request) {
-		$paymentMethodPlugins =& PluginRegistry::loadCategory('paymethod');
+		$paymentMethodPlugins = PluginRegistry::loadCategory('paymethod');
 		$paymentMethodPluginName = array_shift($args);
 		if (empty($paymentMethodPluginName) || !isset($paymentMethodPlugins[$paymentMethodPluginName])) {
 			$request->redirect(null, null, 'index');
@@ -49,7 +49,7 @@ class PaymentHandler extends Handler {
 
 		$paymentManager = Application::getPaymentManager($request->getContext());
 		$templateMgr = TemplateManager::getManager($request);
-		$queuedPaymentDao = DAORegistry::getDAO('QueuedPaymentDAO');
+		$queuedPaymentDao = DAORegistry::getDAO('QueuedPaymentDAO'); /* @var $queuedPaymentDao QueuedPaymentDAO */
 		$queuedPayment = $queuedPaymentDao->getById($queuedPaymentId = array_shift($args));
 		if (!$queuedPayment) {
 			$templateMgr->assign(array(

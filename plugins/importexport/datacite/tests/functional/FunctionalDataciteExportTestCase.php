@@ -3,9 +3,9 @@
 /**
  * @file plugins/importexport/datacite/tests/functional/FunctionalDataciteExportTest.php
  *
- * Copyright (c) 2014-2018 Simon Fraser University
- * Copyright (c) 2000-2018 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2020 Simon Fraser University
+ * Copyright (c) 2000-2020 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class FunctionalDataciteExportTest
  * @ingroup plugins_importexport_datacite_tests_functional
@@ -32,7 +32,7 @@ class FunctionalDataciteExportTest extends FunctionalDoiExportTest {
 	/**
 	 * @see PHPUnit_Framework_TestCase::setUp()
 	 */
-	protected function setUp() {
+	protected function setUp() : void {
 		$this->pluginId = 'datacite';
 
 		// Retrieve and check configuration. (We're in a chicken
@@ -331,7 +331,8 @@ class FunctionalDataciteExportTest extends FunctionalDoiExportTest {
 	 */
 	protected function checkDoiRegistration($doi, $sampleFile, $expectedTargetUrl) {
 		// Prepare HTTP session.
-		$curlCh = curl_init ();
+		import('lib.pkp.classes.helpers.PKPCurlHelper');
+		$curlCh = PKPCurlHelper::getCurlObject();
 
 		// Set up basic authentication.
 		$login = 'TIB.OJSTEST:' . $this->dcPassword;
@@ -340,7 +341,6 @@ class FunctionalDataciteExportTest extends FunctionalDoiExportTest {
 
 		// Request the DOI's URL over SSL.
 		$apiUrl = "https://mds.datacite.org/%action/$doi?testMode=true";
-		curl_setopt($curlCh, CURLOPT_SSL_VERIFYPEER, false);
 
 		curl_setopt($curlCh, CURLOPT_RETURNTRANSFER, true);
 		try {
@@ -408,8 +408,8 @@ class FunctionalDataciteExportTest extends FunctionalDoiExportTest {
 			// Make sure we got the actual modified date but
 			// replace it with the modified date in the sample data
 			// so that our tests do not bail.
-			$articleDao = DAORegistry::getDAO('ArticleDAO'); /* @var $articleDao ArticleDAO */
-			$article = $articleDao->getById(1);
+			$submissionDao = DAORegistry::getDAO('SubmissionDAO'); /* @var $submissionDao SubmissionDAO */
+			$article = $submissionDao->getById(1);
 			$modifiedDate = date('Y-m-d', strtotime($article->getLastModified()));
 			$xml = str_replace('<date dateType="Updated">' . $modifiedDate, '<date dateType="Updated">2011-12-09', $xml);
 		}

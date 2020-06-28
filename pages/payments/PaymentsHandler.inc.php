@@ -3,9 +3,9 @@
 /**
  * @file pages/payments/PaymentsHandler.inc.php
  *
- * Copyright (c) 2014-2018 Simon Fraser University
- * Copyright (c) 2003-2018 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2020 Simon Fraser University
+ * Copyright (c) 2003-2020 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class PaymentsHandler
  * @ingroup pages_payments
@@ -16,6 +16,10 @@
 import('classes.handler.Handler');
 
 class PaymentsHandler extends Handler {
+
+	/** @copydoc PKPHandler::_isBackendPage */
+	var $_isBackendPage = true;
+
 	/**
 	 * Constructor.
 	 */
@@ -36,6 +40,9 @@ class PaymentsHandler extends Handler {
 		$this->setupTemplate($request);
 		AppLocale::requireComponents(LOCALE_COMPONENT_APP_MANAGER);
 		$templateMgr = TemplateManager::getManager($request);
+		$templateMgr->assign([
+			'pageTitle' => __('manager.subscriptions'),
+		]);
 		$templateMgr->display('payments/index.tpl');
 	}
 
@@ -115,11 +122,7 @@ class PaymentsHandler extends Handler {
 		$templateMgr->assign('acceptSubscriptionPayments', $paymentManager->isConfigured());
 
 		$subscriptionPolicyForm = new SubscriptionPolicyForm();
-		if ($subscriptionPolicyForm->isLocaleResubmit()) {
-			$subscriptionPolicyForm->readInputData();
-		} else {
-			$subscriptionPolicyForm->initData();
-		}
+		$subscriptionPolicyForm->initData();
 		return new JSONMessage(true, $subscriptionPolicyForm->fetch($request));
 	}
 
@@ -157,11 +160,7 @@ class PaymentsHandler extends Handler {
 		import('classes.subscription.form.PaymentTypesForm');
 
 		$paymentTypesForm = new PaymentTypesForm();
-		if ($paymentTypesForm->isLocaleResubmit()) {
-			$paymentTypesForm->readInputData();
-		} else {
-			$paymentTypesForm->initData();
-		}
+		$paymentTypesForm->initData();
 		return new JSONMessage(true, $paymentTypesForm->fetch($request));
 	}
 

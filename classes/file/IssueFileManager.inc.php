@@ -3,9 +3,9 @@
 /**
  * @file classes/file/IssueFileManager.inc.php
  *
- * Copyright (c) 2014-2018 Simon Fraser University
- * Copyright (c) 2003-2018 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2020 Simon Fraser University
+ * Copyright (c) 2003-2020 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class IssueFileManager
  * @ingroup file
@@ -33,7 +33,7 @@ class IssueFileManager extends FileManager {
 	 * @param $issueId int
 	 */
 	function __construct($issueId) {
-		$issueDao = DAORegistry::getDAO('IssueDAO');
+		$issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
 		$issue = $issueDao->getById($issueId);
 		assert(isset($issue));
 
@@ -81,7 +81,7 @@ class IssueFileManager extends FileManager {
 	 * @return boolean if successful
 	 */
 	function deleteById($fileId) {
-		$issueFileDao = DAORegistry::getDAO('IssueFileDAO');
+		$issueFileDao = DAORegistry::getDAO('IssueFileDAO'); /* @var $issueFileDao IssueFileDAO */
 		$issueFile = $issueFileDao->getById($fileId);
 
 		if (parent::deleteByPath($this->getFilesDir() . $this->contentTypeToPath($issueFile->getContentType()) . '/' . $issueFile->getServerFileName())) {
@@ -102,11 +102,11 @@ class IssueFileManager extends FileManager {
 	/**
 	 * Download a file.
 	 * @param $fileId int the file id of the file to download
-	 * @param $inline print file as inline instead of attachment, optional
+	 * @param $inline boolean print file as inline instead of attachment, optional
 	 * @return boolean
 	 */
 	function downloadById($fileId, $inline = false) {
-		$issueFileDao = DAORegistry::getDAO('IssueFileDAO');
+		$issueFileDao = DAORegistry::getDAO('IssueFileDAO'); /* @var $issueFileDao IssueFileDAO */
 		$issueFile = $issueFileDao->getById($fileId);
 
 		if ($issueFile) {
@@ -146,14 +146,14 @@ class IssueFileManager extends FileManager {
 	 * Create an issue galley based on a temporary file.
 	 * @param $temporaryFile TemporaryFile
 	 * @param $contentType int Issue file content type
-	 * @return IssueFile the resulting issue file
+	 * @return IssueFile|false the resulting issue file
 	 */
 	function fromTemporaryFile($temporaryFile, $contentType = ISSUE_FILE_PUBLIC) {
 		$result = null;
 		if (HookRegistry::call('IssueFileManager::fromTemporaryFile', array(&$temporaryFile, &$contentType, &$result))) return $result;
 
 		$issueId = $this->getIssueId();
-		$issueFileDao = DAORegistry::getDAO('IssueFileDAO');
+		$issueFileDao = DAORegistry::getDAO('IssueFileDAO'); /* @var $issueFileDao IssueFileDAO */
 
 		$contentTypePath = $this->contentTypeToPath($contentType);
 		$dir = $this->getFilesDir() . $contentTypePath . '/';

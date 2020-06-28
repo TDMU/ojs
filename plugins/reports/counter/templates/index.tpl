@@ -1,16 +1,18 @@
 {**
  * plugins/reports/counter/templates/index.tpl
  *
- * Copyright (c) 2014-2018 Simon Fraser University
- * Copyright (c) 2003-2018 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2020 Simon Fraser University
+ * Copyright (c) 2003-2020 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * Counter plugin index
  *}
-{strip}
-{assign var="pageTitle" value="plugins.reports.counter"}
-{include file="common/header.tpl"}
-{/strip}
+{extends file="layouts/backend.tpl"}
+
+{block name="page"}
+	<h1 class="app__pageHeading">
+		{translate key="plugins.reports.counter"}
+	</h1>
 
 <div id="counterPlugin" class="pkp_page_content pkp_page_counter_plugin">
 <p>{translate key="plugins.reports.counter.description"}</p>
@@ -41,4 +43,4 @@
 {/if}
 </div>
 
-{include file="common/footer.tpl"}
+{/block}
