@@ -1,15 +1,15 @@
 {**
  * plugins/generic/announcementFeed/templates/block.tpl
  *
- * Copyright (c) 2014-2018 Simon Fraser University
- * Copyright (c) 2003-2018 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2014-2020 Simon Fraser University
+ * Copyright (c) 2003-2020 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * Announcement feed plugin navigation sidebar.
  *
  *}
 <div class="pkp_block block_announcement_feed">
-	<span class="title">{translate key="announcement.announcements"}</span>
+	<h2 class="title">{translate key="announcement.announcements"}</h2>
 	<div class="content">
 		<ul>
 			<li>
