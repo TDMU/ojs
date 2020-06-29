@@ -13,8 +13,8 @@
 		{translate key="common.language"}
 	</h2>
 
-	<div class="content" style="display: flex;">
-		<ul>
+	<div class="content">
+		<ul style="display: flex;">
 			{foreach from=$languageToggleLocales item=localeName key=localeKey}
 				<li class="locale_{$localeKey|escape}{if $localeKey == $currentLocale} current{/if}" lang="{$localeKey|replace:"_":"-"}">
 					<a href="{url router=$smarty.const.ROUTE_PAGE page="user" op="setLocale" path=$localeKey source=$smarty.server.REQUEST_URI}">
