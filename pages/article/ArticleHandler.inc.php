@@ -72,9 +72,15 @@ class ArticleHandler extends Handler {
 
 		if (!$submission && ctype_digit((string) $urlPath)) {
 			$submission = Services::get('submission')->get($urlPath);
+			if ($submission && $request->getContext()->getId() != $submission->getContextId()) $submission = null;
 		}
 
-		if (!$submission || $submission->getData('status') !== STATUS_PUBLISHED) {
+		import('classes.issue.IssueAction');
+		$issueAction = new IssueAction();
+		$context = $request->getContext();
+		$user = $request->getUser();
+
+		if (!$submission || ($submission->getData('status') !== STATUS_PUBLISHED && !$issueAction->allowedPrePublicationAccess($context, $submission, $user))) {
 			$request->getDispatcher()->handle404();
 		}
 
@@ -106,7 +112,7 @@ class ArticleHandler extends Handler {
 			$galleyId = $subPath;
 		}
 
-		if ($this->publication->getData('status') !== STATUS_PUBLISHED) {
+		if ($this->publication->getData('status') !== STATUS_PUBLISHED && !$issueAction->allowedPrePublicationAccess($context, $submission, $user)) {
 			$request->getDispatcher()->handle404();
 		}
 
@@ -226,7 +232,7 @@ class ArticleHandler extends Handler {
 		$templateMgr->assign([
 			'licenseTerms' => $context->getLocalizedData('licenseTerms'),
 			'licenseUrl' => $publication->getData('licenseUrl'),
-			'copyrightHolder' => $publication->getData('copyrightHolder'),
+			'copyrightHolder' => $publication->getLocalizedData('copyrightHolder'),
 			'copyrightYear' => $publication->getData('copyrightYear'),
 			'pubIdPlugins' => PluginRegistry::loadCategory('pubIds', true),
 			'keywords' => $publication->getData('keywords'),
@@ -503,6 +509,6 @@ class ArticleHandler extends Handler {
 	 */
 	function setupTemplate($request) {
 		parent::setupTemplate($request);
-		AppLocale::requireComponents(LOCALE_COMPONENT_PKP_READER, LOCALE_COMPONENT_PKP_SUBMISSION);
+		AppLocale::requireComponents(LOCALE_COMPONENT_PKP_READER, LOCALE_COMPONENT_PKP_SUBMISSION, LOCALE_COMPONENT_APP_SUBMISSION);
 	}
 }

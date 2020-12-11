@@ -204,7 +204,8 @@ class SubscriptionForm extends Form {
 		$subscriptionType = $subscriptionTypeDao->getById($subscription->getTypeId());
 		if (!$subscriptionType->getNonExpiring()) {
 			$subscription->setDateStart($this->getData('dateStart'));
-			$subscription->setDateEnd($this->getData('dateEnd'));
+			$dateEnd = strtotime($this->getData('dateEnd'));
+			$subscription->setDateEnd(mktime(23, 59, 59, (int) date("m", $dateEnd), (int) date("d", $dateEnd), (int) date("Y", $dateEnd)));
 		}
 	}
 

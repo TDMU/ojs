@@ -170,6 +170,7 @@ class DefaultThemePlugin extends ThemePlugin {
 			$additionalLessVariables[] = '@bg-base:' . $this->getOption('baseColour') . ';';
 			if (!$this->isColourDark($this->getOption('baseColour'))) {
 				$additionalLessVariables[] = '@text-bg-base:rgba(0,0,0,0.84);';
+				$additionalLessVariables[] = '@bg-base-border-color:rgba(0,0,0,0.2);';
 			}
 		}
 
@@ -205,7 +206,7 @@ class DefaultThemePlugin extends ThemePlugin {
 
 			$this->addStyle(
 				'homepageImage',
-				'.pkp_structure_head { background: inherit center / cover no-repeat url("' . $homepageImageUrl . '");}',
+				'.pkp_structure_head { background: center / cover no-repeat url("' . $homepageImageUrl . '");}',
 				['inline' => true]
 			);
 		}

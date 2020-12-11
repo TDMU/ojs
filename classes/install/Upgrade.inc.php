@@ -587,7 +587,7 @@ class Upgrade extends Installer {
 		$tempStatsDao = new UsageStatsTemporaryRecordDAO();
 		$tempStatsDao->deleteByLoadId($loadId);
 
-		import('lib.pkp.plugins.generic.usageStats.GeoLocationTool');
+		import('plugins.generic.usageStats.GeoLocationTool');
 		$geoLocationTool = new GeoLocationTool();
 
 		while(!$result->EOF) {
@@ -2385,14 +2385,14 @@ class Upgrade extends Installer {
 			$oldKeywords = array_map('trim', $oldKeywordsArray);
 			// get current keywords
 			$newKeywords = array();
-			$newKeywordsArray = $submissionKeywordDao->getKeywords($submissionId, array($locale));
+			$newKeywordsArray = $submissionKeywordDao->getKeywords($submissionId, [$locale], ASSOC_TYPE_SUBMISSION);
 			if (array_key_exists($locale, $newKeywordsArray)) {
 				$newKeywords = array_map('trim', $newKeywordsArray[$locale]);
 			}
 			// get the difference and insert them
 			$keywordsToAdd = array_diff($oldKeywords, $newKeywords);
 			if (!empty($keywordsToAdd)) {
-				$submissionKeywordDao->insertKeywords(array($locale => $keywordsToAdd), $submissionId, false);
+				$submissionKeywordDao->insertKeywords(array($locale => $keywordsToAdd), $submissionId, false, ASSOC_TYPE_SUBMISSION);
 			}
 
 			// correct the old keywords migration:
@@ -2401,7 +2401,7 @@ class Upgrade extends Installer {
 			// consider locales other than old keywords locales (for example if added after the migration),
 			// in order not to remove those when inserting below
 			if (!array_key_exists($submissionId, $subjectsToKeep)) {
-				$newSubjectsArray = $submissionSubjectDao->getSubjects($submissionId, $installedLocales);
+				$newSubjectsArray = $submissionSubjectDao->getSubjects($submissionId, $installedLocales, ASSOC_TYPE_SUBMISSION);
 				$subjectsToKeep[$submissionId] = $newSubjectsArray;
 			}
 			// if subjects for the current locale exist
@@ -2423,7 +2423,7 @@ class Upgrade extends Installer {
 			// insert the subjects that should be kept, overriding the existing ones
 			// also if they are empty, because then they should be deleted
 			foreach ($subjectsToKeep as $submissionId => $submissionSubjects) {
-				$submissionSubjectDao->insertSubjects($submissionSubjects, $submissionId);
+				$submissionSubjectDao->insertSubjects($submissionSubjects, $submissionId, true, ASSOC_TYPE_SUBMISSION);
 			}
 		}
 
@@ -2437,14 +2437,14 @@ class Upgrade extends Installer {
 			$oldSubjects = array_map('trim', $oldSubjectsArray);
 			// get current subjects
 			$newSubjects = array();
-			$newSubjectsArray = $submissionSubjectDao->getSubjects($submissionId, array($locale));
+			$newSubjectsArray = $submissionSubjectDao->getSubjects($submissionId, array($locale), ASSOC_TYPE_SUBMISSION);
 			if (array_key_exists($locale, $newSubjectsArray)) {
 				$newSubjects = array_map('trim', $newSubjectsArray[$locale]);
 			}
 			// get the difference and insert them
 			$subjectsToAdd = array_diff($oldSubjects, $newSubjects);
 			if (!empty($subjectsToAdd)) {
-				$submissionSubjectDao->insertSubjects(array($locale => $subjectsToAdd), $submissionId, false);
+				$submissionSubjectDao->insertSubjects(array($locale => $subjectsToAdd), $submissionId, false, ASSOC_TYPE_SUBMISSION);
 			}
 			$result->MoveNext();
 		}
@@ -2748,7 +2748,7 @@ class Upgrade extends Installer {
 
 		// Consider article cover images
 		// Note that the locale column values are already changed above
-		$settingValueResult = $journalSettingsDao->retrieve('SELECT a.*, b.context_id FROM submission_settings a, submissions b WHERE a.setting_name = \'fileName\' AND a.locale = ? AND a.setting_value LIKE ? AND a.setting_type = \'string\' AND b.submission_id = a.submission_id', array($newLocale, '%' .$oldLocale .'%'));
+		$settingValueResult = $journalSettingsDao->retrieve('SELECT a.*, b.context_id FROM submission_settings a, submissions b WHERE a.setting_name = \'fileName\' AND a.locale = ? AND a.setting_value LIKE ? AND b.submission_id = a.submission_id', array($newLocale, '%' .$oldLocale .'%'));
 		while (!$settingValueResult->EOF) {
 			$row = $settingValueResult->getRowAssoc(false);
 			$oldCoverImage = $row['setting_value'];
@@ -2767,7 +2767,7 @@ class Upgrade extends Installer {
 		// blockContent (from a custom block plugin), additionalInformation (from objects for review plugin)
 		$pluginSettingsDao = DAORegistry::getDAO('PluginSettingsDAO'); /* @var $pluginSettingsDao PluginSettingsDAO */
 		$settingNames = "('blockContent', 'additionalInformation')";
-		$settingValueResult = $pluginSettingsDao->retrieve('SELECT * FROM plugin_settings WHERE setting_name IN ' .$settingNames .' AND setting_value LIKE ? AND setting_type = \'object\'', array('%' .$oldLocaleStringLength .':"' .$oldLocale .'%'));
+		$settingValueResult = $pluginSettingsDao->retrieve('SELECT * FROM plugin_settings WHERE setting_name IN ' .$settingNames .' AND setting_value LIKE ?', array('%' .$oldLocaleStringLength .':"' .$oldLocale .'%'));
 		while (!$settingValueResult->EOF) {
 			$row = $settingValueResult->getRowAssoc(false);
 			$arraySettingValue = $pluginSettingsDao->getSetting($row['context_id'], $row['plugin_name'], $row['setting_name']);
