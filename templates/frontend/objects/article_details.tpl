@@ -406,17 +406,6 @@
 				</div>
 			{/if}
 
-				{if $section}
-					<div class="sub_item">
-						<div class="label">
-							{translate key="section.section"}
-						</div>
-						<div class="value">
-							{$section->getLocalizedTitle()|escape}
-						</div>
-					</div>
-				{/if}
-			</div>
             <div class="item issue">
                 <span class="__dimensions_badge_embed__" data-doi="{$pubId}" data-style="small_circle"></span><script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
 			</div>
