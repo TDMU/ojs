@@ -83,6 +83,7 @@ msgstr "所有费用必须是正的数字值 (允许小数点)"
 msgid "manager.payment.generalFees"
 msgstr "一般费用"
 
+#, fuzzy
 msgid "manager.payment.generalFeesDescription"
 msgstr "该协会的成员，将出现在政策下面的关于期刊里, 捐赠链接就会出现右边框的搜索功能上面."
 
@@ -664,9 +665,6 @@ msgid "manager.setup.reviewOptions.automatedRemindersDisabled"
 msgstr ""
 "要使用邮件自动提醒功能，管理员必须启用OJS配置文件中的<tt>scheduled_tasks</tt> 选项。另外，OJS "
 "文档中对于服务器的配置会对此选项有所关联。"
-
-msgid "manager.setup.reviewOptions.blindReview"
-msgstr "盲审"
 
 msgid "manager.setup.reviewOptions.numWeeksPerReview"
 msgstr "一般审稿时间"
@@ -1286,6 +1284,7 @@ msgstr "购买事项"
 msgid "manager.sections.confirmDelete"
 msgstr "您确定要永久删除该栏目吗？"
 
+#, fuzzy
 msgid "manager.sections.alertDelete"
 msgstr "在该栏目能够被删除之前，您必须将栏目中已经出版过的文章移动到另一个栏目中。"
 

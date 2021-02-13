@@ -1,8 +1,8 @@
 /**
  * @file cypress/tests/data/60-content/AmwandengaSubmission.spec.js
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2000-2020 John Willinsky
+ * Copyright (c) 2014-2021 Simon Fraser University
+ * Copyright (c) 2000-2021 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  */
@@ -76,15 +76,16 @@ describe('Data suite tests', function() {
 
 		// Metadata
 		cy.get('#metadata-button').click();
-		cy.get('#metadata-keywords-control-en_US').type('Professional Development{enter}', {delay: 0});
-		cy.wait(100);
-		cy.get('#metadata-keywords-control-en_US').type('Social Transformation{enter}', {delay: 0});
-		cy.wait(100);
+		cy.get('#metadata-keywords-control-en_US').type('Professional Development', {delay: 0});
+		cy.wait(500);
+		cy.get('#metadata-keywords-control-en_US').type('{enter}', {delay: 0});
+		cy.get('#metadata-keywords-selected-en_US').contains('Professional Development');
+		cy.get('#metadata-keywords-control-en_US').type('Social Transformation', {delay: 0});
+		cy.wait(500);
+		cy.get('#metadata-keywords-control-en_US').type('{enter}', {delay: 0});
+		cy.get('#metadata-keywords-selected-en_US').contains('Social Transformation');
 		cy.get('#metadata button').contains('Save').click();
 		cy.get('#metadata [role="status"]').contains('Saved');
-
-		cy.get('#metadata-keywords-selected-en_US').contains('Professional Development');
-		cy.get('#metadata-keywords-selected-en_US').contains('Social Transformation');
 
 		// Permissions & Disclosure
 		cy.get('#license-button').click();

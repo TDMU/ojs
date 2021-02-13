@@ -1,8 +1,8 @@
 {**
  * templates/workflow/workflow.tpl
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2003-2020 John Willinsky
+ * Copyright (c) 2014-2021 Simon Fraser University
+ * Copyright (c) 2003-2021 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * Display the workflow tab structure.
@@ -51,6 +51,21 @@
 			>
 				{{ __('common.view') }}
 			</pkp-button>
+			<pkp-button
+				v-else-if="submission.status !== getConstant('STATUS_PUBLISHED') && submission.stageId >= getConstant('WORKFLOW_STAGE_ID_EDITING')"
+				element="a"
+				:href="submission.urlPublished"
+			>
+				{translate key="common.preview"}
+			</pkp-button>
+			{if $submissionPaymentsEnabled}
+				<dropdown
+					class="pkpWorkflow__submissionPayments"
+					label="{translate key="common.payments"}"
+				>
+					<pkp-form class="pkpWorkflow__submissionPaymentsForm" v-bind="components.{$smarty.const.FORM_SUBMISSION_PAYMENTS}" @set="set">
+				</dropdown>
+			{/if}
 			{if $canAccessEditorialHistory}
 				<pkp-button
 					ref="activityButton"
@@ -67,7 +82,7 @@
 			</pkp-button>
 		</template>
 	</pkp-header>
-	<tabs default-tab="workflow">
+	<tabs default-tab="workflow" :track-history="true">
 		<tab id="workflow" label="{translate key="manager.workflow"}">
 			<script type="text/javascript">
 				// Initialize JS handler.
@@ -86,6 +101,7 @@
 		</tab>
 		{if $canAccessPublication}
 			<tab id="publication" label="{translate key="submission.publication"}">
+				{help file="editorial-workflow/publication" class="pkp_help_tab"}
 				<div class="pkpPublication" ref="publication" aria-live="polite">
 					<pkp-header class="pkpPublication__header" :is-one-line="false">
 						<span class="pkpPublication__status">
@@ -123,6 +139,13 @@
 						{if $canPublish}
 							<template slot="actions">
 								<pkp-button
+									v-if="workingPublication.status !== getConstant('STATUS_PUBLISHED') && submission.stageId >= getConstant('WORKFLOW_STAGE_ID_EDITING')"
+									element="a"
+									:href="workingPublication.urlPublished"
+								>
+									{translate key="common.preview"}
+								</pkp-button>
+								<pkp-button
 									v-if="workingPublication.status === getConstant('STATUS_QUEUED')"
 									ref="publish"
 									@click="workingPublication.issueId ? openPublish() : openAssignToIssue()"
@@ -159,7 +182,7 @@
 					>
 						{translate key="publication.editDisabled"}
 					</div>
-					<tabs class="pkpPublication__tabs" :is-side-tabs="true" :label="currentPublicationTabsLabel">
+					<tabs class="pkpPublication__tabs" :is-side-tabs="true" :track-history="true" :label="currentPublicationTabsLabel">
 						<tab id="titleAbstract" label="{translate key="publication.titleAbstract"}">
 							<pkp-form v-bind="components.{$smarty.const.FORM_TITLE_ABSTRACT}" @set="set" />
 						</tab>

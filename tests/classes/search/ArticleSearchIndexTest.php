@@ -3,8 +3,8 @@
 /**
  * @file tests/classes/search/ArticleSearchIndexTest.php
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2000-2020 John Willinsky
+ * Copyright (c) 2014-2021 Simon Fraser University
+ * Copyright (c) 2000-2021 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class ArticleSearchIndexTest
@@ -65,8 +65,11 @@ class ArticleSearchIndexTest extends PKPTestCase {
 		HookRegistry::register('ArticleSearchIndex::submissionFileChanged', array($this, 'callbackUpdateFileIndex'));
 
 		// Simulate updating an article file via hook.
+		import('lib.pkp.classes.submission.SubmissionFile');
+		$submissionFile = new SubmissionFile();
+		$submissionFile->setId(2);
 		$articleSearchIndex = Application::getSubmissionSearchIndex();
-		$articleSearchIndex->submissionFileChanged(0, 1, 2);
+		$articleSearchIndex->submissionFileChanged(0, 1, $submissionFile);
 
 		// Test whether the hook was called.
 		$calledHooks = HookRegistry::getCalledHooks();
@@ -248,10 +251,10 @@ class ArticleSearchIndexTest extends PKPTestCase {
 	public function callbackUpdateFileIndex($hook, $params) {
 		self::assertEquals('ArticleSearchIndex::submissionFileChanged', $hook);
 
-		list($articleId, $type, $fileId) = $params;
+		list($articleId, $type, $submissionFileId) = $params;
 		self::assertEquals(0, $articleId);
 		self::assertEquals(1, $type);
-		self::assertEquals(2, $fileId);
+		self::assertEquals(2, $submissionFileId);
 
 		// Returning "true" is required so that the default submissionMetadataChanged()
 		// code won't run.

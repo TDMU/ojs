@@ -2,14 +2,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2019-09-27T09:54:39-07:00\n"
+"PO-Revision-Date: 2020-12-03 15:43+0000\n"
+"Last-Translator: Edvin Erdtman <edvin.erdtman@liu.se>\n"
+"Language-Team: English (United States) <http://translate.pkp.sfu.ca/projects/"
+"ojs/manager/en_US/>\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-09-27T09:54:39-07:00\n"
-"PO-Revision-Date: 2019-09-27T09:54:39-07:00\n"
-"Language: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
 
 msgid "manager.distribution.access"
 msgstr "Access"
@@ -113,8 +116,9 @@ msgstr "All costs must be positive numeric values (decimal points are allowed)"
 msgid "manager.payment.generalFees"
 msgstr "General Fees"
 
+#, fuzzy
 msgid "manager.payment.generalFeesDescription"
-msgstr "The Association Membership will appear in About the Journal under Policies, and the donations link will appear above the search function in the right-hand frame."
+msgstr "The Association Membership will appear in About the Journal under Policies."
 
 msgid "manager.payment.generalOptions"
 msgstr "General Options"
@@ -246,7 +250,7 @@ msgid "manager.sections.confirmDelete"
 msgstr "Are you sure you want to permanently delete this section?"
 
 msgid "manager.sections.alertDelete"
-msgstr "Before this section can be deleted, you must move articles published within it into other sections."
+msgstr "Before this section can be deleted, you must move articles submitted to it into other sections."
 
 msgid "manager.sections.create"
 msgstr "Create Section"
@@ -259,6 +263,12 @@ msgstr "Items can only be submitted by Editors and Section Editors."
 
 msgid "manager.sections.editors"
 msgstr "Section editors"
+
+#, fuzzy
+msgid "manager.sections.confirmDeactivateSection.error"
+msgstr ""
+"At least one section must be active. Visit the workflow settings to disable "
+"all submissions to this journal."
 
 msgid "manager.sections.form.abbrevRequired"
 msgstr "An abbreviated title is required for the section"
@@ -800,9 +810,6 @@ msgstr "Automated Email Reminders"
 msgid "manager.setup.reviewOptions.automatedRemindersDisabled"
 msgstr "To send automated email reminders, the site administrator must enable the <tt>scheduled_tasks</tt> option in the OJS configuration file. Additional server configuration may be required as indicated in the OJS documentation."
 
-msgid "manager.setup.reviewOptions.blindReview"
-msgstr "Blind Review"
-
 msgid "manager.setup.reviewOptions.numWeeksPerReview"
 msgstr "Weeks allowed to complete the review"
 
@@ -895,6 +902,12 @@ msgstr "Submissions"
 
 msgid "manager.setup.submissions.description"
 msgstr "Author guidelines, copyright, and indexing (including registration)."
+
+msgid "manager.setup.disableSubmissions.description"
+msgstr "Prevent users from submitting new articles to the journal. Submissions can be disabled for individual journal sections on the <a href="{$url}">journal sections</a> settings page."
+
+msgid "manager.setup.disableSubmissions.notAccepting"
+msgstr "This journal is not accepting submissions at this time. Visit the workflow settings to allow submissions."
 
 msgid "manager.setup.enableOai"
 msgstr "Enable OAI"

@@ -1,8 +1,8 @@
 {**
  * templates/frontend/objects/article_details.tpl
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2003-2020 John Willinsky
+ * Copyright (c) 2014-2021 Simon Fraser University
+ * Copyright (c) 2003-2021 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @brief View of an Article which displays all details about the article.
@@ -70,8 +70,14 @@
  {/if}
 <article class="obj_article_details">
 
+	{* Indicate if this is only a preview *}
+	{if $publication->getData('status') !== $smarty.const.STATUS_PUBLISHED}
+	<div class="cmp_notification notice">
+		{capture assign="submissionUrl"}{url page="workflow" op="access" path=$article->getId()}{/capture}
+		{translate key="submission.viewingPreview" url=$submissionUrl}
+	</div>
 	{* Notification that this is an old version *}
-	{if $currentPublication->getId() !== $publication->getId()}
+	{elseif $currentPublication->getId() !== $publication->getId()}
 		<div class="cmp_notification notice">
 			{capture assign="latestVersionUrl"}{url page="article" op="view" path=$article->getBestId()}{/capture}
 			{translate key="submission.outdatedVersion"
@@ -106,6 +112,9 @@
 							{if $author->getLocalizedData('affiliation')}
 								<span class="affiliation">
 									{$author->getLocalizedData('affiliation')|escape}
+									{if $author->getData('rorId')}
+										<a href="{$author->getData('rorId')|escape}">{$rorIdIcon}</a>
+									{/if}
 								</span>
 							{/if}
 							{if $author->getData('orcid')}

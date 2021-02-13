@@ -3,8 +3,8 @@
 /**
  * @file classes/template/TemplateManager.inc.php
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2003-2020 John Willinsky
+ * Copyright (c) 2014-2021 Simon Fraser University
+ * Copyright (c) 2003-2021 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class TemplateManager
@@ -28,9 +28,9 @@ class TemplateManager extends PKPTemplateManager {
 		parent::initialize($request);
 
 		// Pass app-specific details to template
-		$this->assign(array(
+		$this->assign([
 			'brandImage' => 'templates/images/ojs_brand.png',
-		));
+		]);
 
 		if (!defined('SESSION_DISABLE_INIT')) {
 			/**
@@ -51,51 +51,41 @@ class TemplateManager extends PKPTemplateManager {
 				$this->addStyleSheet(
 					'siteStylesheet',
 					$request->getBaseUrl() . '/' . $publicFileManager->getSiteFilesPath() . '/' . $site->getData('styleSheet')['uploadName'],
-					array(
-						'priority' => STYLE_SEQUENCE_LATE
-					)
+					['priority' => STYLE_SEQUENCE_LATE]
 				);
 			}
 			if (isset($context)) {
-
-				$this->assign(array(
+				$this->assign([
 					'currentJournal' => $context,
 					'siteTitle' => $context->getLocalizedName(),
 					'publicFilesDir' => $request->getBaseUrl() . '/' . $publicFileManager->getContextFilesPath($context->getId()),
 					'primaryLocale' => $context->getPrimaryLocale(),
 					'supportedLocales' => $context->getSupportedLocaleNames(),
-					'displayPageHeaderTitle' => $context->getLocalizedPageHeaderTitle(),
-					'displayPageHeaderLogo' => $context->getLocalizedPageHeaderLogo(),
-					'displayPageHeaderLogoAltText' => $context->getLocalizedData('pageHeaderLogoImageAltText'),
 					'numPageLinks' => $context->getData('numPageLinks'),
 					'itemsPerPage' => $context->getData('itemsPerPage'),
 					'enableAnnouncements' => $context->getData('enableAnnouncements'),
 					'disableUserReg' => $context->getData('disableUserReg'),
-				));
-
-				$paymentManager = Application::getPaymentManager($context);
-				$this->assign('pageFooter', $context->getLocalizedData('pageFooter'));
+					'pageFooter' => $context->getLocalizedData('pageFooter'),
+				]);
 			} else {
 				// Check if registration is open for any contexts
 				$contextDao = Application::getContextDAO();
 				$contexts = $contextDao->getAll(true)->toArray();
-				$contextsForRegistration = array();
+				$contextsForRegistration = [];
 				foreach($contexts as $context) {
 					if (!$context->getData('disableUserReg')) {
 						$contextsForRegistration[] = $context;
 					}
 				}
 
-				$this->assign(array(
+				$this->assign([
 					'contexts' => $contextsForRegistration,
 					'disableUserReg' => empty($contextsForRegistration),
-					'displayPageHeaderTitle' => $site->getLocalizedPageHeaderTitle(),
-					'displayPageHeaderLogo' => $site->getLocalizedData('pageHeaderTitleImage'),
 					'siteTitle' => $site->getLocalizedTitle(),
 					'primaryLocale' => $site->getPrimaryLocale(),
 					'supportedLocales' => $site->getSupportedLocaleNames(),
 					'pageFooter' => $site->getLocalizedData('pageFooter'),
-				));
+				]);
 
 			}
 		}

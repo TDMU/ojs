@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-30T11:58:53-07:00\n"
-"PO-Revision-Date: 2020-06-07 15:39+0000\n"
-"Last-Translator: Diego José Macêdo <diegojmacedo@gmail.com>\n"
+"PO-Revision-Date: 2021-02-03 17:44+0000\n"
+"Last-Translator: Alex Mendonça <alex.mendonca@scielo.org>\n"
 "Language-Team: Portuguese (Brazil) <http://translate.pkp.sfu.ca/projects/ojs/"
 "manager/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -125,7 +125,8 @@ msgid "manager.payment.generalFees"
 msgstr "Taxas gerais"
 
 msgid "manager.payment.generalFeesDescription"
-msgstr "A taxa de adesão aparecerá na seção Políticas da página Sobre a revista, e o link para doações aparecerá, por padrão, acima das funções de busca da barra lateral."
+msgstr ""
+"A taxa de adesão aparecerá na seção Políticas da página Sobre a Revista."
 
 msgid "manager.payment.generalOptions"
 msgstr "Opções gerais"
@@ -248,7 +249,9 @@ msgid "manager.sections.abstractsNotRequired"
 msgstr "Não exigir resumos"
 
 msgid "manager.section.noSectionEditors"
-msgstr "Ainda não existem editores de sessão. Designe este papel a ao menos um usuário por meio de Gerente > Configurações > Usuários e Papéis."
+msgstr ""
+"Ainda não existem editores de seção. Designe este papel a ao menos um "
+"usuário por meio de Gerente > Configurações > Usuários e Papéis."
 
 msgid "manager.sections.assigned"
 msgstr "Editores desta seção"
@@ -256,6 +259,7 @@ msgstr "Editores desta seção"
 msgid "manager.sections.confirmDelete"
 msgstr "Deseja realmente excluir permanentemente esta seção?"
 
+#, fuzzy
 msgid "manager.sections.alertDelete"
 msgstr "Antes de poder excluir esta seção, é necessário mover os artigos publicados nela para outras seções."
 
@@ -597,7 +601,7 @@ msgid "manager.setup.journalArchiving"
 msgstr "Arquivamento"
 
 msgid "manager.setup.contextSummary"
-msgstr "Resumo da Revista"
+msgstr "Resumo do Periódico"
 
 msgid "manager.setup.contextAbout"
 msgstr "Sobre a Revista"
@@ -859,9 +863,6 @@ msgstr ""
 "ativar a opção <tt>scheduled_tasks</tt> no arquivo de configuração do OJS. "
 "Pode ser necessária uma configuração adicional do servidor, conforme "
 "indicado na documentação do OJS."
-
-msgid "manager.setup.reviewOptions.blindReview"
-msgstr "Avaliação pelos pares cega"
 
 msgid "manager.setup.reviewOptions.numWeeksPerReview"
 msgstr "Prazo padrão permitido para conlusão de uma avaliação"
@@ -1871,3 +1872,25 @@ msgstr "Todas as configurações específicas para o processo de distribuição 
 
 msgid "plugins.importexport.common.action.checkStatus"
 msgstr "Verificar Status"
+
+msgid "plugins.importexport.common.validation.fail"
+msgstr "Falha na validação."
+
+msgid "plugins.importexport.common.validation.success"
+msgstr "Validação bem sucedida!"
+
+msgid "manager.setup.disableSubmissions.notAccepting"
+msgstr ""
+"Esta revista não está aceitando submissões no momento. Visite as "
+"configurações do fluxo de trabalho para permitir submissões."
+
+msgid "manager.setup.disableSubmissions.description"
+msgstr ""
+"Impedir que usuários submetam novos artigos à revista. As submissões podem "
+"ser desabilitadas para seções individuais da revista na página de "
+"configurações das <a href=\"{$url}\"> Seções da Revista</a>."
+
+msgid "manager.sections.confirmDeactivateSection.error"
+msgstr ""
+"Pelo menos uma seção deve estar ativa. Verifique as configurações do fluxo "
+"de trabalho para desativar todas as submissões desta revista."

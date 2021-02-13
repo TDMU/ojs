@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/usageEvent/UsageEventPlugin.inc.php
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2003-2020 John Willinsky
+ * Copyright (c) 2014-2021 Simon Fraser University
+ * Copyright (c) 2003-2021 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class UsageEventPlugin
@@ -29,7 +29,8 @@ class UsageEventPlugin extends PKPUsageEventPlugin {
 			'ArticleHandler::download',
 			'IssueHandler::download',
 			'HtmlArticleGalleyPlugin::articleDownload',
-			'HtmlArticleGalleyPlugin::articleDownloadFinished'
+			'HtmlArticleGalleyPlugin::articleDownloadFinished',
+			'LensGalleyPlugin::articleDownloadFinished'
 		));
 	}
 
@@ -38,7 +39,8 @@ class UsageEventPlugin extends PKPUsageEventPlugin {
 	 */
 	protected function getDownloadFinishedEventHooks() {
 		return array_merge(parent::getDownloadFinishedEventHooks(), array(
-			'HtmlArticleGalleyPlugin::articleDownloadFinished'
+			'HtmlArticleGalleyPlugin::articleDownloadFinished',
+			'LensGalleyPlugin::articleDownloadFinished'
 		));
 	}
 
@@ -114,18 +116,18 @@ class UsageEventPlugin extends PKPUsageEventPlugin {
 					// Article file.
 				case 'ArticleHandler::download':
 				case 'HtmlArticleGalleyPlugin::articleDownload':
+				case 'LensGalleyPlugin::articleDownloadFinished':
 					$assocType = ASSOC_TYPE_SUBMISSION_FILE;
 					$article = $hookArgs[0];
 					$galley = $hookArgs[1];
-					$fileId = $hookArgs[2];
+					$submissionFileId = $hookArgs[2];
 					// if file is not a gallay file (e.g. CSS or images), there is no usage event.
-					if ($galley->getFileId() != $fileId) return false;
+					if ($galley->getData('submissionFileId') != $submissionFileId) return false;
 					$canonicalUrlOp = 'download';
-					$canonicalUrlParams = array($article->getId(), $galley->getId(), $fileId);
-					$idParams = array('a' . $article->getId(), 'g' . $galley->getId(), 'f' . $fileId);
+					$canonicalUrlParams = array($article->getId(), $galley->getId(), $submissionFileId);
+					$idParams = array('a' . $article->getId(), 'g' . $galley->getId(), 'f' . $submissionFileId);
 					$downloadSuccess = false;
-					$submissionFileDao = DAORegistry::getDAO('SubmissionFileDAO'); /* @var $submissionFileDao SubmissionFileDAO */
-					$pubObject = $submissionFileDao->getLatestRevision($fileId);
+					$pubObject = Services::get('submissionFile')->get($submissionFileId);
 					break;
 				default:
 					// Why are we called from an unknown hook?

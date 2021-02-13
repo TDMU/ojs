@@ -3,25 +3,26 @@
 <!--
   * dbscripts/xml/install.xml
   *
-  * Copyright (c) 2014-2020 Simon Fraser University
-  * Copyright (c) 2003-2020 John Willinsky
+  * Copyright (c) 2014-2021 Simon Fraser University
+  * Copyright (c) 2003-2021 John Willinsky
   * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
   *
   * Installation descriptor file.
   -->
 
-<install version="3.3.0.0">
+<install version="3.3.0.3">
 	<code function="checkPhpVersion" />
 
 	<code function="createDirectories"/>
-	<code function="createDatabase"/>
 
 	<!-- PKP schema components -->
 	<migration class="lib.pkp.classes.migration.AnnouncementsMigration" />
 	<migration class="lib.pkp.classes.migration.CategoriesMigration" />
 	<migration class="lib.pkp.classes.migration.CommonMigration" />
 	<migration class="lib.pkp.classes.migration.ControlledVocabMigration" />
+	<migration class="lib.pkp.classes.migration.FilesMigration" />
 	<migration class="lib.pkp.classes.migration.GenresMigration" />
+	<migration class="lib.pkp.classes.migration.JobsMigration" />
 	<migration class="lib.pkp.classes.migration.LibraryFilesMigration" />
 	<migration class="lib.pkp.classes.migration.LogMigration" />
 	<migration class="lib.pkp.classes.migration.MetadataMigration" />
@@ -29,10 +30,10 @@
 	<migration class="lib.pkp.classes.migration.NavigationMenusMigration" />
 	<migration class="lib.pkp.classes.migration.NotesMigration" />
 	<migration class="lib.pkp.classes.migration.ReviewFormsMigration" />
+	<migration class="lib.pkp.classes.migration.SubmissionFilesMigration" /><!-- before ReviewsMigration so that foreign keys can be defined-->
 	<migration class="lib.pkp.classes.migration.ReviewsMigration" />
 	<migration class="lib.pkp.classes.migration.RolesAndUserGroupsMigration" />
 	<migration class="lib.pkp.classes.migration.ScheduledTasksMigration" />
-	<migration class="lib.pkp.classes.migration.SubmissionFilesMigration" />
 	<migration class="lib.pkp.classes.migration.SubmissionsMigration" />
 	<migration class="lib.pkp.classes.migration.TemporaryFilesMigration" />
 	<migration class="lib.pkp.classes.migration.TombstoneMigration" />
