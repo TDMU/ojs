@@ -3,8 +3,8 @@
 #
 # tools/buildpkg.sh
 #
-# Copyright (c) 2014-2020 Simon Fraser University
-# Copyright (c) 2003-2020 John Willinsky
+# Copyright (c) 2014-2021 Simon Fraser University
+# Copyright (c) 2003-2021 John Willinsky
 # Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
 #
 # Script to create an OJS package for distribution.
@@ -47,6 +47,9 @@ lib/pkp/.git										\
 lib/pkp/lib/vendor/smarty/smarty/demo							\
 lib/pkp/lib/vendor/sebastian								\
 lib/pkp/lib/vendor/oyejorge/less.php/test						\
+lib/pkp/lib/vendor/swiftmailer/swiftmailer/tests					\
+lib/pkp/lib/vendor/dragonmantank/cron-expression/tests/					\
+lib/pkp/lib/vendor/cweagans/composer-patches/tests					\
 lib/pkp/tools/travis									\
 plugins/paymethod/paypal/vendor/omnipay/common/tests/					\
 plugins/paymethod/paypal/vendor/omnipay/paypal/tests/					\
@@ -55,6 +58,7 @@ plugins/paymethod/paypal/vendor/guzzle/guzzle/tests/					\
 plugins/generic/citationStyleLanguage/lib/vendor/symfony/debug/				\
 plugins/generic/citationStyleLanguage/lib/vendor/symfony/console/Tests/			\
 plugins/paymethod/paypal/vendor/symfony/http-foundation/Tests/				\
+plugins/paymethod/paypal/vendor/clue/stream-filter/tests				\
 plugins/generic/citationStyleLanguage/lib/vendor/symfony/filesystem/Tests/		\
 plugins/generic/citationStyleLanguage/lib/vendor/symfony/stopwatch/Tests/		\
 plugins/generic/citationStyleLanguage/lib/vendor/symfony/event-dispatcher/Tests/	\

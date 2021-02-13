@@ -186,8 +186,8 @@ For contributions that are distributed separately as patches or plugins:
 /**
  * @file /path/to/filename.inc.php
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2003-2020 John Willinsky
+ * Copyright (c) 2014-2021 Simon Fraser University
+ * Copyright (c) 2003-2021 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @package PACKAGE
@@ -199,22 +199,20 @@ For contributions that are distributed separately as patches or plugins:
 
 ### Database Queries
 
-* SQL queries should use the ADOdb or Laravel abstraction layer.
+* SQL queries should use the Laravel abstraction layer.
 * SQL should use placeholders for variables.
 * Explicit typecasts should be used where possible in variable replacements.
 * For example:
 ```
-	$dbconn = DBConnection::getConn();
-	$result = $dbconn->execute('SELECT x FROM mytable WHERE y = ?', array($y));
-	$result = $dbconn->execute('INSERT INTO mytable (x, y) VALUES (?, ?)', array((int) $x, $y));
+	$result = $this->execute('SELECT x FROM mytable WHERE y = ?', [$y]);
+	$result = $this->execute('INSERT INTO mytable (x, y) VALUES (?, ?)', [(int) $x, $y]);
 ```
 * Only portable, standards compliant SQL should be used - compatibility with
   MySQL and PostgreSQL (versions as per README) is required. If database
-  specific logic cannot be avoided it should be abstracted into DBConnection or
-  ADOdb.
+  specific logic cannot be avoided it should be abstracted.
 
 
-### Direct Access Objects
+### Data Access Objects
 
 * DAO classes should be used to encapsulate all database calls.
 * For example:
@@ -236,8 +234,8 @@ For contributions that are distributed separately as patches or plugins:
 	{**
 	 * /path/to/filename.tpl
 	 *
-	 * Copyright (c) 2014-2020 Simon Fraser University
-	 * Copyright (c) 2003-2020 John Willinsky
+	 * Copyright (c) 2014-2021 Simon Fraser University
+	 * Copyright (c) 2003-2021 John Willinsky
 	 * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
 	 *
 	 * DESCRIPTION.

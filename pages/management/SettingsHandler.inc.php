@@ -3,8 +3,8 @@
 /**
  * @file pages/management/SettingsHandler.inc.php
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2003-2020 John Willinsky
+ * Copyright (c) 2014-2021 Simon Fraser University
+ * Copyright (c) 2003-2021 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class SettingsHandler
@@ -128,6 +128,15 @@ class SettingsHandler extends ManagementHandler {
 		$components[$archivingLockssForm->id] = $archivingLockssForm->getConfig();
 		$components[$archivePnForm->id] = $archivePnForm->getConfig();
 		$templateMgr->setState(['components' => $components]);
+
+		// Add a payments link to be added/removed when payments form submitted
+		$templateMgr->setState([
+			'paymentsNavLink' => [
+				'name' => __('common.payments'),
+				'url' => $router->url($request, null, 'payments'),
+				'isCurrent' => false,
+			],
+		]);
 
 		// Hook into the settings templates to add the appropriate tabs
 		HookRegistry::register('Template::Settings::distribution', function($hookName, $args) {

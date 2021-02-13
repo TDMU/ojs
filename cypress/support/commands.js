@@ -1,8 +1,8 @@
 /**
  * @file cypress/support/commands.js
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2000-2020 John Willinsky
+ * Copyright (c) 2014-2021 Simon Fraser University
+ * Copyright (c) 2000-2021 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  */
@@ -29,6 +29,7 @@ Cypress.Commands.add('isInIssue', (submissionTitle, issueTitle) => {
 
 Cypress.Commands.add('checkViewableGalley', (galleyTitle) => {
 	cy.get('[class^="obj_galley_link"]').contains(galleyTitle).click();
+	cy.wait(1000); // Wait for JS to populate iframe src attribute (https://github.com/pkp/pkp-lib/issues/6246)
 	cy.get('iframe')
 		.should('have.attr', 'src')
 		.then((src) => {

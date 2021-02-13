@@ -7,8 +7,8 @@
 ;
 ; config.TEMPLATE.inc.php
 ;
-; Copyright (c) 2014-2020 Simon Fraser University
-; Copyright (c) 2003-2020 John Willinsky
+; Copyright (c) 2014-2021 Simon Fraser University
+; Copyright (c) 2003-2021 John Willinsky
 ; Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
 ;
 ; OJS Configuration settings.
@@ -55,7 +55,6 @@ scheduled_tasks = Off
 time_zone = "UTC"
 
 ; Short and long date formats
-date_format_trunc = "%m-%d"
 date_format_short = "%Y-%m-%d"
 date_format_long = "%B %e, %Y"
 datetime_format_short = "%Y-%m-%d %I:%M %p"
@@ -94,9 +93,6 @@ restful_urls = Off
 ; Warning: This defaults to "On" if unset for backwards compatibility.
 trust_x_forwarded_for = Off
 
-; Allow javascript files to be served through a content delivery network (set to off to use local files)
-enable_cdn = On
-
 ; Set the maximum number of citation checking processes that may run in parallel.
 ; Too high a value can increase server load and lead to too many parallel outgoing
 ; requests to citation checking web services. Too low a value can lead to significantly
@@ -133,12 +129,13 @@ host = localhost
 username = ojs
 password = ojs
 name = ojs
+
 ; Set the non-standard port and/or socket, if used
 ; port = 3306
 ; unix_socket = /var/run/mysqld/mysqld.sock
 
-; Enable persistent connections
-persistent = Off
+; Database collation
+; collation = utf8_general_ci
 
 ; Enable database debug output (very verbose!)
 debug = Off
@@ -191,10 +188,7 @@ locale = en_US
 client_charset = utf-8
 
 ; Database connection character set
-; Must be set to "Off" if not supported by the database server
-; If enabled, must be the same character set as "client_charset"
-; (although the actual name may differ slightly depending on the server)
-connection_charset = Off
+connection_charset = utf8
 
 
 ;;;;;;;;;;;;;;;;;
@@ -214,7 +208,7 @@ files_dir = files
 ; Windows users should use forward slashes
 public_files_dir = public
 
-; The maximum allowed size in bytes of each user's public files
+; The maximum allowed size in kilobytes of each user's public files
 ; directory. This is where user's can upload images through the
 ; tinymce editor to their bio. Editors can upload images for
 ; some of the settings.
@@ -378,9 +372,6 @@ min_word_length = 3
 ; are fetched and merged to provide results for searches with several keywords.
 results_per_keyword = 500
 
-; The number of hours for which keyword search results are cached.
-result_cache_hours = 1
-
 ; Paths to helper programs for indexing non-text files.
 ; Programs are assumed to output the converted text to stdout, and "%s" is
 ; replaced by the file argument.
@@ -448,6 +439,9 @@ recaptcha_private_key = your_private_key
 ; Whether or not to use Captcha on user registration
 captcha_on_register = on
 
+; Whether or not to use Captcha on user login
+captcha_on_login = on
+
 ; Validate the hostname in the ReCaptcha response
 recaptcha_enforce_hostname = Off
 
@@ -461,9 +455,6 @@ recaptcha_enforce_hostname = Off
 ; certain plug-ins or advanced program features.
 
 ; Using full paths to the binaries is recommended.
-
-; perl (used in paracite citation parser)
-perl = /usr/bin/perl
 
 ; tar (used in backup plugin, translation packaging)
 tar = /bin/tar
@@ -508,6 +499,6 @@ deprecation_warnings = Off
 log_web_service_info = Off
 
 ; declare a cainfo path if a certificate other than PHP's default should be used for curl calls.
-; This setting overrides the 'curl.cainfo' parameter of the php.ini configuration file. 
+; This setting overrides the 'curl.cainfo' parameter of the php.ini configuration file.
 [curl]
 ; cainfo = ""

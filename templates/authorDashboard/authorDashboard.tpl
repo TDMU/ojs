@@ -1,8 +1,8 @@
 {**
  * templates/authorDashboard/authorDashboard.tpl
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2003-2020 John Willinsky
+ * Copyright (c) 2014-2021 Simon Fraser University
+ * Copyright (c) 2003-2021 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * Display the author dashboard.
@@ -38,7 +38,7 @@
 				</pkp-button>
 			</template>
 		</pkp-header>
-		<tabs>
+		<tabs :track-history="true">
 			<tab id="workflow" label="{translate key="manager.workflow"}">
 
 				{include file="controllers/notification/inPlaceNotification.tpl" notificationId="authorDashboardNotification" requestOptions=$authorDashboardNotificationRequestOptions}
@@ -121,7 +121,7 @@
 					>
 						{translate key="publication.editDisabled"}
 					</div>
-					<tabs :is-side-tabs="true" class="pkpPublication__tabs" :label="currentPublicationTabsLabel">
+					<tabs :is-side-tabs="true" :track-history="true" class="pkpPublication__tabs" :label="currentPublicationTabsLabel">
 						<tab id="titleAbstract" label="{translate key="publication.titleAbstract"}">
 							<pkp-form v-bind="components.{$smarty.const.FORM_TITLE_ABSTRACT}" @set="set" />
 						</tab>

@@ -3,8 +3,8 @@
 /**
  * @file classes/plugins/PubObjectsExportPlugin.inc.php
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2003-2020 John Willinsky
+ * Copyright (c) 2014-2021 Simon Fraser University
+ * Copyright (c) 2003-2021 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class PubObjectsExportPlugin
@@ -279,7 +279,7 @@ abstract class PubObjectsExportPlugin extends ImportExportPlugin {
 	 * @param $objects mixed Array of or single published submission, issue or galley
 	 * @param $context Context
 	 * @param $filename Export XML filename
-	 * @return boolean Whether the XML document has been registered
+	 * @return boolean|array Whether the XML document has been registered
 	 */
 	abstract function depositXML($objects, $context, $filename);
 

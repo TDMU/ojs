@@ -6,14 +6,10 @@ matrix:
     php: 7.3
   # PostgreSQL / various PHP
   - env: TEST=pgsql
-    php: 7.2
-  - env: TEST=pgsql
     php: 7.3
   - env: TEST=pgsql
     php: 7.4
   # MySQL / various PHP
-  - env: TEST=mysql
-    php: 7.2
   - env: TEST=mysql
     php: 7.3
   - env: TEST=mysql
@@ -57,6 +53,7 @@ before_install:
       npm install && npm run build
     else
       # Prepare for validation tests.
+      npm install
       ./lib/pkp/tools/travis/install-linter.sh
     fi
 
