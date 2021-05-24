@@ -239,7 +239,7 @@ class IssueDAO extends DAO implements PKPPubIdPluginDAO {
 		if ($result->RecordCount() != 0) {
 			$issue = $this->_returnIssueFromRow($result->GetRowAssoc(false));
 		} elseif (is_int($issueId) || ctype_digit($issueId)) {
-			$issue = $this->getById($issueId);
+			$issue = $this->getById($issueId, $contextId);
 		}
 		$result->Close();
 
@@ -562,7 +562,7 @@ class IssueDAO extends DAO implements PKPPubIdPluginDAO {
 				submissions a
 			LEFT JOIN publications p ON (p.publication_id = a.current_publication_id)
 			LEFT JOIN publication_settings ps ON (ps.publication_id = p.publication_id)
-			WHERE	ps.setting_name = ? AND ps.setting_value = CAST(i.issue_id as CHAR) AND
+			WHERE	ps.setting_name = ? AND ps.setting_value = CAST(i.issue_id as CHAR(20)) AND
 				a.submission_id = ? AND
 				a.context_id = i.journal_id' .
 				($journalId?' AND i.journal_id = ?':''),
