@@ -72,7 +72,6 @@
 			<div class="pages">{$submissionPages|escape}</div>
 		{/if}
 
-		{if $showDatePublished && $submissionDatePublished}
         {* DOI (requires plugin) *}
         {foreach from=$pubIdPlugins item=pubIdPlugin}
             {if $pubIdPlugin->getPubIdType() != 'doi'}
