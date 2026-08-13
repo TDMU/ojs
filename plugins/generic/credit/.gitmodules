@@ -1,0 +1,3 @@
+[submodule "credit-translation"]
+	path = credit-translation
+	url = https://github.com/contributorshipcollaboration/credit-translation
