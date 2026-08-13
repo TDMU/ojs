@@ -60,8 +60,9 @@
 
 	{assign var=submissionPages value=$publication->getData('pages')}
 	{assign var=submissionDatePublished value=$publication->getData('datePublished')}
-	{if $showAuthor || $submissionPages || ($submissionDatePublished && $showDatePublished)}
-	<div class="meta">
+	{assign var=doiObject value=$publication->getData('doiObject')}
+	{if $showAuthor || $submissionPages || $doiObject || ($submissionDatePublished && $showDatePublished)}
+		<div class="meta">
 		{if $showAuthor}
 		<div class="authors">
 			{$publication->getAuthorString()|escape}
@@ -73,27 +74,21 @@
 			<div class="pages">{$submissionPages|escape}</div>
 		{/if}
 
-        {* DOI (requires plugin) *}
-        {foreach from=$pubIdPlugins item=pubIdPlugin}
-            {if $pubIdPlugin->getPubIdType() != 'doi'}
-                {continue}
-            {/if}
-            {assign var=pubId value=$article->getStoredPubId($pubIdPlugin->getPubIdType())}
-            {if $pubId}
-                {assign var="doiUrl" value=$pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}
-                <div class="item doi">
-                    <span class="label">
-                        {capture assign=translatedDOI}{translate key="plugins.pubIds.doi.readerDisplayName"}{/capture}
-                        {translate key="semicolon" label=$translatedDOI}
-                    </span>
-                    <span class="value">
-                        <a href="{$doiUrl}">
-                            {$doiUrl}
-                        </a>
-                    </span>
-                </div>
-            {/if}
-        {/foreach}
+		{* DOI *}
+		{if $doiObject}
+			{assign var=doiUrl value=$doiObject->getData('resolvingUrl')}
+			<div class="doi">
+				<span class="label">
+					{capture assign=translatedDOI}{translate key="doi.readerDisplayName"}{/capture}
+					{translate key="semicolon" label=$translatedDOI}
+				</span>
+				<span class="value">
+					<a href="{$doiUrl|escape}">
+						{$doiUrl|escape}
+					</a>
+				</span>
+			</div>
+		{/if}
 
 		{if $showDatePublished && $article->getDatePublished()}
 			<div class="published">
