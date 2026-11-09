@@ -91,7 +91,7 @@
 			</div>
 		{/if}
 
-		{if $showDatePublished && $article->getDatePublished()}
+		{if $showDatePublished && $submissionDatePublished}
 			<div class="published">
 				{$submissionDatePublished|date_format:$dateFormatShort}
 			</div>
